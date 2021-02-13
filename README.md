@@ -14,7 +14,7 @@ This program includes the following folders: cmake (contains the rules and build
 ***
 # **Data structures**
 
-The main data structure in this program is `class Convertor`. It contains method `int (Roman_to_Arabic(string value))`
+The main data structure in this program is `class Convertor`. It contains method `int (Roman_to_Arabic(string value))` that convert Roman numbers to Arabic.
 
 ***
 # **Merging an upstream repository into your fork (master branch)**
