@@ -1,5 +1,5 @@
-#ifndef INCLUDE_REMAINDER_H_
-#define INCLUDE_REMAINDER_H_
+#ifndef INCLUDE_COMPLEX_MULTIPLICATION_H_
+#define INCLUDE_COMPLEX_MULTIPLICATION_H_
 
 #include <iostream>
 
@@ -18,4 +18,4 @@ public:
 	void multiplication(Complex z);
 };
 
-#endif  // INCLUDE_REMAINDER_H_
+#endif  // INCLUDE_COMPLEX_MULTIPLICATION_H_
