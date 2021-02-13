@@ -16,7 +16,7 @@ This template includes the following folders: cmake (contains the rules and buil
 
 `git checkout master`
 
- `git pull https://github.com/UsovaMA/Development-Template.git master`
+ `git pull https://github.com/enjulia17/Template_for_Project_Works.git master`
  
  ***
 # **Updating working branch**
