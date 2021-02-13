@@ -1,6 +1,6 @@
 cmake_minimum_required(VERSION 3.6 FATAL_ERROR)
 
-project(samples)
+project(roman_number_convertor)
 
 include(cmake/function.cmake)
 
