@@ -14,6 +14,7 @@ public:
 	string roman_num;
 
 	int Roman_to_Arabic(string value);
+	string Arabic_to_Roman(unsigned int value);
 };
 
 #endif  // INCLUDE_ROMAN_NUMBER_CONVERTOR_H_
