@@ -1,6 +1,6 @@
 # Roman number convertor 
 
-This program allows you to convert Roman numbers to Arabic.
+This program allows you to convert Roman numbers to Arabic and Arabic numbers to Roman. For more convenient use, this program is equipped with a detailed user menu.
 
 * Build system: cmake
 * Tests: gtest
@@ -14,7 +14,7 @@ This program includes the following folders: cmake (contains the rules and build
 ***
 # **Data structures**
 
-The main data structure in this program is `class Convertor`. It contains method `int (Roman_to_Arabic(string value))` that converts Roman numbers to Arabic.
+The main data structure in this program is `class Convertor`. It contains method `int Roman_to_Arabic(string value)` that converts Roman numbers to Arabic and method `string Arabic_to_Roman(unsigned int value)` that converts Arabic numbers to Roman.
 
 ***
 # **Merging an upstream repository into your fork (master branch)**
