@@ -26,6 +26,7 @@ int main()
 				cout << "Arabic number is " << res_roman.Roman_to_Arabic(roman) << endl;
 			}	
 		}
+
 		else if (command == 2)
 		{
 			Convertor res_arabic;
@@ -38,8 +39,10 @@ int main()
 				cout << "Roman number is " << res_arabic.Arabic_to_Roman(arabic) << endl;
 			}
 		}
+
 		else if (command == 3)
 			break;
+
 		else if (command == 4)
 		{
 			cout << "User menu (available commands): \n" <<
@@ -48,6 +51,7 @@ int main()
 				"Press 3 to quit \n" <<
 				"Press 4 to open the user menu" << endl;
 		}
+
 		else
 		{
 			cout << "Error: This command is not available! Try another one from the user menu." << endl;
