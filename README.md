@@ -7,9 +7,9 @@ This program allows you to convert Roman numbers to Arabic and Arabic numbers to
 * Code style check: cpplint
 
 ***
-# **Roman number convertor structure**
+# **Roman number convertor repository's structure**
 
-This program includes the following folders: cmake (contains the rules and build goals), function_lib (contains the header and the source file), gtest (contains files with auxiliary code necessary for the operation of the test system and the entire program), main (contains the main function that demonstrates the operation of the program), test (contains a set of tests to check the correctness of the program).
+This repository includes the following folders: cmake (contains the rules and build goals), function_lib (contains the header and the source file), gtest (contains files with auxiliary code necessary for the operation of the test system and the entire program), main (contains the main function that demonstrates the operation of the program), test (contains a set of tests to check the correctness of the program).
 
 ***
 # **Data structures**
