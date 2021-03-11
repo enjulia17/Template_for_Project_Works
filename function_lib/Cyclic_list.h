@@ -69,7 +69,6 @@ bool HasCycle_by_Slow_and_Fast_Pointers(Cyclic_List _list)
 	if (Fast != NULL)
 		Fast = Fast->next;
 	}
-
 	return false;
 }
 
