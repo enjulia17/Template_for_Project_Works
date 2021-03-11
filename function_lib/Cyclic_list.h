@@ -53,23 +53,27 @@ bool HasCycle_by_Slow_and_Fast_Pointers(Cyclic_List _list)
 	if (_list.head == NULL)
 		return false;
 
-	Node* Slow = _list.head;
-	Node* Fast = Slow->next;
+	Node* Slow = _list.head->next;
+	if (Slow == NULL)
+		return false;
 
+	Node* Fast = Slow->next;
 	while (Fast != NULL && Slow != NULL)
 	{
-		Slow = Slow->next;
-		Fast = Fast->next;
+		if (Fast == Slow)
+			return true;
 
-		if (Fast != NULL)
-			if (Slow->next == Fast)
-				return true;
+	Slow = Slow->next;
+	Fast = Fast->next;
+
+	if (Fast != NULL)
+		Fast = Fast->next;
 	}
 
 	return false;
 }
 
-bool HasCycle_by_reverse(Cyclic_List _list)
+bool HasCycle_by_reverse(Cyclic_List _list, int i = 0)
 {
 	Node* p_next = _list.head->next;
 	Node* previous = NULL;
@@ -80,21 +84,19 @@ bool HasCycle_by_reverse(Cyclic_List _list)
 		present->next = previous;
 		previous = present;
 		present = p_next;
-		if (p_next != NULL)
-			p_next = p_next->next;
+	    p_next = p_next->next;
 	}
 
 	_list.head->next = previous;
-	_list.head = previous;
+	
+	if (i == 1)
+		return true;
+
+	HasCycle_by_reverse(_list, 1);
 	
 	if (present == _list.head)
-	{
 		return true;
-	}
-		
 	else
-	{
 		return false;
-	}
 }
 

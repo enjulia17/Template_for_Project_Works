@@ -1,5 +1,5 @@
 #include "Cyclic_list.h"
-#include <list>
+
 int main()
 {
 	Cyclic_List current;
@@ -20,7 +20,6 @@ int main()
 		cout << "This list has a cycle" << endl;
 	else
 		cout << "This list doesn't have a cycle" << endl;
-
 
 	current.Printing();
 
