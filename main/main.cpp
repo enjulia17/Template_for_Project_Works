@@ -1,22 +1,32 @@
-#include <stdio.h>
-#include "complex_multiplication.h"
+#include "Cyclic_list.h"
 
-int main() 
+int main()
 {
-	Complex num_1;
-	num_1.set(2, 4);
-	cout << "Number 1st:\n";
-	num_1.output_re();
-	num_1.output_im();
-	Complex num_2;
-	num_2.input();
-	cout << "Number 2nd:\n";
-	num_2.output_re();
-	num_2.output_im();
-	num_1.multiplication(num_2);
-	cout << "The result of multiplication:\n";
-	num_1.output_re();
-	num_1.output_im();
+	Cyclic_List current;
+	int size;
+	cout << "Enter the size of the list: ";
+	cin >> size;
+	current.Initialization(size);
+	current.Printing();
+
+	cout << "Checking the list for a cycle using slow and fast pointers: ";
+	if (HasCycle_by_Slow_and_Fast_Pointers(current))
+		cout << "This list has a cycle" << endl;
+	else
+		cout << "This list doesn't have a cycle" << endl;
+
+	cout << "Checking the list for a cycle using reverse: ";
+	if (HasCycle_by_reverse(current))
+		cout << "This list has a cycle" << endl;
+	else
+		cout << "This list doesn't have a cycle" << endl;
+
+	current.Printing();
+
 	system("pause");
-    return 0;
+	return 0;
 }
+	
+
+
+	
