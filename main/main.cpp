@@ -1,22 +1,36 @@
-#include <stdio.h>
-#include "complex_multiplication.h"
+#include <iostream>
+#include <locale.h>
 
-int main() 
+#include "Polynomial.h"
+
+using namespace std;
+
+int main()
 {
-	Complex num_1;
-	num_1.set(2, 4);
-	cout << "Number 1st:\n";
-	num_1.output_re();
-	num_1.output_im();
-	Complex num_2;
-	num_2.input();
-	cout << "Number 2nd:\n";
-	num_2.output_re();
-	num_2.output_im();
-	num_1.multiplication(num_2);
-	cout << "The result of multiplication:\n";
-	num_1.output_re();
-	num_1.output_im();
-	system("pause");
-    return 0;
+	try
+	{
+		int a[] = { 1, 2, 3 };
+		int b[] = { 4, 5, 6 };
+		TMonomial A(3, a, 5);
+		TMonomial B(3, b, 2);
+		cout << "Monom A: " << A << endl;
+		cout << "Monom B: " << B << endl;
+
+		TPolynomial P(3);
+		P += A;
+		P += B;
+		cout << "\n Polynom P = A + B: " << P << endl;
+
+		TPolynomial P2(P);
+		cout << "Polynom P2(P): " << P2 << endl;
+
+		TPolynomial P3(3);
+		P3 = P + P2;
+		cout << "\n Polynom P3 = P + P2 : " << P3 << endl;
+	}
+	catch (TException exp)
+	{
+		exp.Show();
+	}
+	return 0;
 }
