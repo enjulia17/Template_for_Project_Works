@@ -4,22 +4,6 @@
 
 using namespace std;
 
-class TException
-{
-private:
-	string str;
-public:
-	TException(string _str);
-	void Show();
-};
-
-TException::TException(string _str) : str(_str) {}
-
-void TException::Show()
-{
-	cout << "\n Message: " << str << endl;
-}
-
 class TMonomial
 {
 protected:
@@ -58,13 +42,13 @@ public:
 	bool operator > (TMonomial &A);
 
 	friend istream& operator >> (istream &istr, TMonomial &m);
-	friend ostream& operator<<(ostream &ostr, TMonomial &m);
+	friend ostream& operator << (ostream &ostr, TMonomial &m);
 };
 
 TMonomial::TMonomial(int _n)
 {
 	if (_n < 0)
-		throw TException("Error");
+		throw "Error";
 	else if (_n == 0)
 	{
 		n = 0;
@@ -72,7 +56,7 @@ TMonomial::TMonomial(int _n)
 		power = 0;
 		coefficient = 0;
 	}
-	else if (_n > 0)
+	else 
 	{
 		n = _n;
 		next = NULL;
@@ -84,7 +68,7 @@ TMonomial::TMonomial(int _n)
 TMonomial::TMonomial(int _n, int* _power, double _coeff)
 {
 	if (_n < 0)
-		throw TException("Error");
+		throw "Error";
 	else if (_n == 0)
 	{
 		power = 0;
@@ -103,7 +87,7 @@ TMonomial::TMonomial(int _n, int* _power, double _coeff)
 			if (_power[i] >= 0)
 				power[i] = _power[i];
 			else
-				throw TException("Error");
+				throw "Error";
 		}
 	}
 }
@@ -126,7 +110,7 @@ TMonomial::TMonomial(const TMonomial &A)
 
 TMonomial::~TMonomial()
 {
-	if (power)
+	if (power != 0)
 		delete[]power;
 	n = 0;
 	coefficient = 0;
@@ -140,14 +124,14 @@ void TMonomial::SetPower(int *_power)
 		if (_power[i] >= 0)
 			power[i] = _power[i];
 		else
-			throw TException("Error");
+			throw "Error";
 	}
 }
 
 void TMonomial::SetN(int _n)
 {
-	if (_n <= 0)
-		throw TException("Error");
+	if (_n < 0)
+		throw "Error";
 	else if (_n == 0)
 	{
 		if (power != 0)
@@ -234,13 +218,16 @@ TMonomial TMonomial::operator + (TMonomial &A)
 
 TMonomial &TMonomial::operator+=(const TMonomial & A)
 {
-	if (n != A.n)
-		throw TException("Error");
+	/*if (n != A.n)
+		throw "Error";
 	for (int i = 0; i < n; i++)
 		if (power[i] != A.power[i])
-			throw TException("Error");
+			throw "Error";
 	coefficient += A.coefficient;
-	return *this;
+	return *this;*/
+	if (ComparePowers(A))
+		coefficient += A.coefficient;
+	return *this; 
 }
 
 TMonomial TMonomial::operator - (TMonomial &A)
@@ -252,12 +239,15 @@ TMonomial TMonomial::operator - (TMonomial &A)
 
 TMonomial &TMonomial::operator-=(const TMonomial & A)
 {
-	if (n != A.n)
-		throw TException("Error");
+	/*if (n != A.n)
+		throw "Error";
 	for (int i = 0; i < n; i++)
 		if (power[i] != A.power[i])
-			throw TException("Error");
+			throw "Error";
 	coefficient -= A.coefficient;
+	return *this;*/
+	if (ComparePowers(A))
+		coefficient -= A.coefficient;
 	return *this;
 }
 
@@ -271,7 +261,7 @@ TMonomial TMonomial::operator * (TMonomial &A)
 TMonomial &TMonomial::operator *= (TMonomial & A)
 {
 	if (n != A.n)
-		throw TException("Error");
+		throw "Error";
 	coefficient *= A.coefficient;
 	for (int i = 0; i < n; i++)
 		power[i] += A.power[i];
@@ -281,7 +271,7 @@ TMonomial &TMonomial::operator *= (TMonomial & A)
 bool TMonomial::operator == (TMonomial &A)
 {
 	if (n != A.n)
-		throw TException("Error");
+		throw "Error";
 	if (coefficient != A.coefficient)
 		return false;
 	for (int i = 0; i < n; i++)
@@ -293,7 +283,7 @@ bool TMonomial::operator == (TMonomial &A)
 bool TMonomial::operator > (TMonomial& A)
 {
 	if (n != A.n)
-		throw TException("Error");
+		throw "Error";
 	for (int i = 0; i < n; i++)
 	{
 		if (power[i] == A.power[i])
@@ -315,7 +305,7 @@ bool TMonomial::operator > (TMonomial& A)
 bool TMonomial::operator < (TMonomial& A)
 {
 	if (n != A.n)
-		throw TException("Error");
+		throw "Error";
 	for (int i = 0; i < n; i++)
 	{
 		if (power[i] == A.power[i])

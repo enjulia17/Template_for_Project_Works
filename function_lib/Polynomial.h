@@ -9,8 +9,8 @@ class TPolynomial
 {
 protected:
 	TMonomial *start;
-	int n;          //поле размерности монома
-	int k;          //количество элементов
+	int n;          //размерность монома
+	int k;          //количество мономов
 public:
 	TPolynomial();
 	TPolynomial(int _n);
@@ -41,7 +41,7 @@ TPolynomial::TPolynomial()
 TPolynomial::TPolynomial(int _n)
 {
 	if (_n <= 0)
-		throw TException("Error");
+		throw "Error";
 	n = _n;
 	k = 0;
 	start = NULL;
@@ -107,11 +107,11 @@ TPolynomial& TPolynomial::operator=(const TPolynomial &A)
 		}
 
 		start = new TMonomial(*A.start);
-		TMonomial* src_elem = start;
+		TMonomial* source_elem = start;
 		for (TMonomial* i = A.start->GetNext(); i != NULL; i = i->GetNext())
 		{
-			src_elem->SetNext(new TMonomial(*i));
-			src_elem = src_elem->GetNext();
+			source_elem->SetNext(new TMonomial(*i));
+			source_elem = source_elem->GetNext();
 		}
 
 		n = A.n;
@@ -123,12 +123,13 @@ TPolynomial& TPolynomial::operator=(const TPolynomial &A)
 TPolynomial &TPolynomial::operator+=(const TMonomial &m)
 {
 	if (n != m.GetN())
-		throw TException("Error");
+		throw "Error";
 	if (m.GetCoeff() == 0)
 		return *this;
 	if (start == NULL)
 	{
 		start = new TMonomial(m);
+		start->SetCoeff(start->GetCoeff());
 		k++;
 	}
 	else
@@ -138,7 +139,7 @@ TPolynomial &TPolynomial::operator+=(const TMonomial &m)
 		{
 			if (ptr->ComparePowers(m))
 			{
-				*ptr += m;
+				*ptr -= m;
 				break;
 			}
 			else if (ptr->GetNext() == NULL)
@@ -150,16 +151,18 @@ TPolynomial &TPolynomial::operator+=(const TMonomial &m)
 		if (last_elem != NULL)
 		{
 			last_elem->SetNext(new TMonomial(m));
+			last_elem->SetCoeff(last_elem->GetCoeff());
 			k++;
 		}
 	}
 	return *this;
 }
 
+
 TPolynomial &TPolynomial::operator-=(const TMonomial &m)
 {
 	if (n != m.GetN())
-		throw TException("Error");
+		throw "Error";
 	if (m.GetCoeff() == 0)
 		return *this;
 	if (start == NULL)
@@ -197,13 +200,13 @@ TPolynomial &TPolynomial::operator-=(const TMonomial &m)
 bool TPolynomial::operator==(const TPolynomial &A)
 {
 	if (this->n != A.n)
-		throw TException("Error");
+		throw "Error";
 	if (this->k != A.k)
 		return false;
-	for (TMonomial* src_ptr = start; src_ptr != NULL; src_ptr = src_ptr->GetNext())
+	for (TMonomial* source_ptr = start; source_ptr != NULL; source_ptr = source_ptr->GetNext())
 		for (TMonomial* p_ptr = start; p_ptr != NULL; p_ptr = p_ptr->GetNext())
 		{
-			if (*src_ptr == *p_ptr)
+			if (*source_ptr == *p_ptr)
 			{
 				break;
 			}
@@ -223,21 +226,21 @@ bool TPolynomial::operator!=(const TPolynomial &A)
 TPolynomial TPolynomial::operator*(TPolynomial &A)
 {
 	if (n != A.n)
-		throw TException("Error");
+		throw "Error";
 	TPolynomial tmp(n);
 
-	for (TMonomial* src_ptr = start; src_ptr != NULL; src_ptr = src_ptr->GetNext())
+	for (TMonomial* source_ptr = start; source_ptr != NULL; source_ptr = source_ptr->GetNext())
 		for (TMonomial* p_ptr = start; p_ptr != NULL; p_ptr = p_ptr->GetNext())
 		{
-			tmp += (*src_ptr) * (*p_ptr);
+			tmp += (*source_ptr) * (*p_ptr);
 		}
 	return tmp;
 }
 
 TPolynomial TPolynomial::operator+(TPolynomial &A)
 {
-	if (n != A.n)
-		throw TException("Error");
+	/*if (n != A.n)
+		throw "Error";*/
 	TPolynomial tmp(A);
 
 	for (TMonomial* p_ptr = start; p_ptr != NULL; p_ptr = p_ptr->GetNext())
@@ -250,8 +253,8 @@ TPolynomial TPolynomial::operator+(TPolynomial &A)
 
 TPolynomial TPolynomial::operator-(TPolynomial &A)
 {
-	if (n != A.n)
-		throw TException("Error");
+	/*if (n != A.n)
+		throw "Error";*/
 	TPolynomial tmp(A);
 
 	for (TMonomial* p_ptr = start; p_ptr != NULL; p_ptr = p_ptr->GetNext())
