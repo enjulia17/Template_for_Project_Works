@@ -42,7 +42,7 @@ int main()
 		{
 			system("cls");
 			string str;
-			cout << "Name of new header: ";
+			cout << "Enter the title: ";
 			cin >> str;
 			T.addNext(str);
 		}
@@ -51,7 +51,7 @@ int main()
 		{
 			system("cls");
 			string str;
-			cout << "Name of new header: ";
+			cout << "Enter the title: ";
 			cin >> str;
 			T.addDown(str);
 		}
