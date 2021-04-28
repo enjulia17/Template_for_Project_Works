@@ -9,8 +9,8 @@ int main()
 {
 	int a[] = { 1, 2, 3 };
 	int b[] = { 4, 5, 6 };
-	TMonomial A(3, a, 5);
-	TMonomial B(3, b, 2);
+	TMonomial A(3, 123, 5);
+	TMonomial B(3, 456, 2);
 	cout << "Monom A = " << A << endl;
 	cout << "Monom B = " << B << endl;
 
