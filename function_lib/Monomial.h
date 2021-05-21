@@ -1,9 +1,20 @@
 #pragma once
 #include <iostream>
 #include <string>
-#include <math.h>
 
 using namespace std;
+
+int numDigits(int n)
+{
+	std::string s = std::to_string(n);
+	return s.length();
+}
+
+int getDigit(int n, int i)
+{
+	std::string s = std::to_string(n);
+	return (int)s[i] - 48;
+}
 
 class TMonomial
 {
@@ -13,8 +24,8 @@ protected:
 	double coefficient; //коэффициент
 	TMonomial *next; //указатель на следующий моном
 public:
-	TMonomial(int _n = 10);
-	TMonomial(int _n, int _power, double _coeff);
+	TMonomial();
+	TMonomial(int _power, double _coeff);
 	TMonomial(const TMonomial &A);
 	~TMonomial();
 
@@ -23,7 +34,7 @@ public:
 	void SetCoeff(double _coeff);
 	void SetNext(TMonomial* _next);
 
-	int GetPower();
+	int GetPower(int i);
 	int GetN() const;
 	double GetCoeff() const;
 	TMonomial* GetNext();
@@ -46,54 +57,31 @@ public:
 	friend ostream& operator << (ostream &ostr, TMonomial &m);
 };
 
-TMonomial::TMonomial(int _n)
+TMonomial::TMonomial()
 {
-	if (_n < 0)
-		throw "Error";
-	else if (_n == 0)
-	{
-		n = 0;
-		next = NULL;
-		power = 0;
-		coefficient = 0;
-	}
-	else 
-	{
-		n = _n;
-		next = NULL;
-		power = 0;
-		for (int i = 0; i < _n; i++)
-			power += pow(10, i);
-		//power = new int[n];
-		coefficient = 0;
-	}
+	n = 0;
+	next = NULL;
+	power = 0;
+	coefficient = 0;
 }
 
-TMonomial::TMonomial(int _n, int _power, double _coeff)
+TMonomial::TMonomial(int _power, double _coeff)
 {
-	if (_n < 0)
+	if (_power < 0)
 		throw "Error";
-	else if (_n == 0)
+	else if (_power == 0)
 	{
 		power = 0;
 		next = NULL;
 		coefficient = _coeff;
-		n = _n;
+		n = 0;
 	}
 	else
 	{
-		n = _n;
+		n = numDigits(_power);
 		coefficient = _coeff;
 		next = 0;
-		//power = new int[_n];
 		power = _power;
-		//for (int i = 0; i < _n; i++)
-		//{
-		//	if (_power[i] >= 0)
-		//		power[i] = _power[i];
-		//	else
-		//		throw "Error";
-		//}
 	}
 }
 
@@ -104,21 +92,15 @@ TMonomial::TMonomial(const TMonomial &A)
 	next = A.next;
 	if (n != 0) {
 		power = A.power;
-		//power = new int[n];
-		//for (int i = 0; i < n; i++)
-		//{
-		//	power[i] = A.power[i];
-		//}
 	}
 	else
-		power = NULL;
+		power = 0;
 }
 
 TMonomial::~TMonomial()
 {
-	//if (power != 0)
-	//	delete[]power;
-	power = 0;
+	if (power != 0)
+		power = 0;
 	n = 0;
 	coefficient = 0;
 	next = 0;
@@ -127,13 +109,6 @@ TMonomial::~TMonomial()
 void TMonomial::SetPower(int _power)
 {
 	power = _power;
-	//for (int i = 0; i < n; i++)
-	//{
-	//	if (_power[i] >= 0)
-	//		power[i] = _power[i];
-	//	else
-	//		throw "Error";
-	//}
 }
 
 void TMonomial::SetN(int _n)
@@ -142,26 +117,15 @@ void TMonomial::SetN(int _n)
 		throw "Error";
 	else if (_n == 0)
 	{
-		//if (power != 0)
-		//	delete[] power;
-		//power = NULL;
-		power = 0;
+		if (power != 0)
+			power = 0;
 	}
 	else if (_n != n)
 	{
-		//int *tmp = power;
-		//power = new int[_n];
-		int count;
-
-		if (n < _n)
-			count = n;
+		if (_n > n)
+			power *= pow(10, _n);
 		else
-			count = _n;
-
-		//for (int i = 0; i < count; i++) {
-		//	power[i] = tmp[i];
-		//}
-		//delete[] tmp;
+			power /= pow(10, _n);
 	}
 	n = _n;
 }
@@ -176,9 +140,9 @@ void TMonomial::SetNext(TMonomial* _next)
 	next = _next;
 }
 
-int TMonomial::GetPower()
+int TMonomial::GetPower(int i)
 {
-	return power;
+	return getDigit(power, i);
 }
 
 int TMonomial::GetN() const
@@ -200,13 +164,9 @@ bool TMonomial::ComparePowers(const TMonomial &A)
 {
 	if (n != A.n)
 		return false;
-	//for (int i = 0; i < n; i++)
-	//	if (power[i] != A.power[i])
-	//		return false;
-
-	if (power != A.power)
-		return false;
-
+	for (int i = 0; i < n; i++)
+		if (getDigit(power, i) != getDigit(A.power, i))
+			return false;
 	return true;
 };
 
@@ -215,11 +175,7 @@ TMonomial &TMonomial::operator = (const TMonomial &A)
 	coefficient = A.coefficient;
 	n = A.n;
 	next = A.next;
-	//delete[] power;
-	//power = new int[n];
 	power = A.power;
-	//for (int i = 0; i < n; i++)
-	//	power[i] = A.power[i];
 	return *this;
 }
 
@@ -232,13 +188,6 @@ TMonomial TMonomial::operator + (TMonomial &A)
 
 TMonomial &TMonomial::operator+=(const TMonomial & A)
 {
-	/*if (n != A.n)
-		throw "Error";
-	for (int i = 0; i < n; i++)
-		if (power[i] != A.power[i])
-			throw "Error";
-	coefficient += A.coefficient;
-	return *this;*/
 	if (ComparePowers(A))
 		coefficient += A.coefficient;
 	return *this; 
@@ -253,13 +202,6 @@ TMonomial TMonomial::operator - (TMonomial &A)
 
 TMonomial &TMonomial::operator-=(const TMonomial & A)
 {
-	/*if (n != A.n)
-		throw "Error";
-	for (int i = 0; i < n; i++)
-		if (power[i] != A.power[i])
-			throw "Error";
-	coefficient -= A.coefficient;
-	return *this;*/
 	if (ComparePowers(A))
 		coefficient -= A.coefficient;
 	return *this;
@@ -277,9 +219,7 @@ TMonomial &TMonomial::operator *= (TMonomial & A)
 	if (n != A.n)
 		throw "Error";
 	coefficient *= A.coefficient;
-	//for (int i = 0; i < n; i++)
-	//	power[i] += A.power[i];
-	power = A.power;
+	power += A.power;
 	return *this;
 }
 
@@ -289,11 +229,8 @@ bool TMonomial::operator == (TMonomial &A)
 		throw "Error";
 	if (coefficient != A.coefficient)
 		return false;
-	//for (int i = 0; i < n; i++)
-	//	if (power[i] != A.power[i])
-	//		return false;
 	if (power != A.power)
-		return false;
+			return false;
 	return true;
 }
 
@@ -301,18 +238,15 @@ bool TMonomial::operator > (TMonomial& A)
 {
 	if (n != A.n)
 		throw "Error";
-	//for (int i = 0; i < n; i++)
-	//{
-	//	if (power[i] == A.power[i])
-	//		continue;
-	//	else if (power[i] > A.power[i])
-	//		return true;
-	//	else
-	//		return false;
-	//		
-	//}
 
-	if (coefficient > A.coefficient)
+	if (power == A.power)
+	{
+		if (coefficient > A.coefficient)
+			return true;
+		else
+			return false;
+	}
+	else if (power > A.power)
 		return true;
 	else
 		return false;
@@ -323,18 +257,15 @@ bool TMonomial::operator < (TMonomial& A)
 {
 	if (n != A.n)
 		throw "Error";
-	//for (int i = 0; i < n; i++)
-	//{
-	//	if (power[i] == A.power[i])
-	//		continue;
-	//	else if
-	//		(power[i] < A.power[i])
-	//		return true;
-	//	else
-	//		return false;
-	//}
 
-	if (coefficient < A.coefficient)
+	if (power == A.power)
+	{
+		if (coefficient < A.coefficient)
+			return true;
+		else
+			return false;
+	}
+	else if (power < A.power)
 		return true;
 	else
 		return false;
@@ -345,7 +276,7 @@ istream& operator >> (istream &istr, TMonomial &m)
 {
 	istr >> m.coefficient;
 	for (int i = 0; i < m.n; i++)
-		//istr >> m.power[i];
+		istr >> m.power;
 	return istr;
 }
 
@@ -353,8 +284,7 @@ ostream& operator<<(ostream &ostr, TMonomial &m)
 {
 	ostr << m.GetCoeff();
 	for (int i = 0; i < m.GetN(); i++)
-		//ostr << "*" << "x" << i << "^" << m.GetPower()[i];
-		ostr << "*" << "x" << i << "^" << m.GetPower();
+		ostr << "*" << "x" << i << "^" << getDigit(m.power, i);
 
 	return ostr;
 }

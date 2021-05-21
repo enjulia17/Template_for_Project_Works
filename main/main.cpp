@@ -7,24 +7,22 @@ using namespace std;
 
 int main()
 {
-	int a[] = { 1, 2, 3 };
-	int b[] = { 4, 5, 6 };
-	TMonomial A(3, 123, 5);
-	TMonomial B(3, 456, 2);
+	TMonomial A(123, 5);
+	TMonomial B(1234, 2);
 	cout << "Monom A = " << A << endl;
 	cout << "Monom B = " << B << endl;
 
 	TPolynomial P(3);
 	P += A;
 	P += B;
-	cout << "\n Polynom P = A + B = " << P << endl;
+	cout << "\nPolynom P = A + B = " << P << endl;
 
 	TPolynomial P2(P);
 	cout << "Polynom P2(P) = " << P2 << endl;
 
 	TPolynomial P3(3);
 	P3 = P + P2;
-	cout << "\n Polynom P3 = P + P2 = " << P3 << endl;
+	cout << "\nPolynom P3 = P + P2 = " << P3 << endl;
 
 	return 0;
 }
