@@ -12,7 +12,6 @@ int main()
 	T.Push("bez");
 	T.Push("zaglavnykh");
 	T.Push("bukv");
-
 	cout << "dan dan tekst bez bez bez zaglavnykh bukv" << endl;
 	cout << "How many times did the word 'dan' occur in the sentence? " << T.Search("dan") << endl;
 	cout << "How many times did the word 'tekst' occur in the sentence? " << T.Search("tekst") << endl;
