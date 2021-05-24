@@ -1,22 +1,25 @@
-#include <stdio.h>
-#include "complex_multiplication.h"
+#include <iostream>
+#include "Search trees.h"
 
-int main() 
+int main()
 {
-	Complex num_1;
-	num_1.set(2, 4);
-	cout << "Number 1st:\n";
-	num_1.output_re();
-	num_1.output_im();
-	Complex num_2;
-	num_2.input();
-	cout << "Number 2nd:\n";
-	num_2.output_re();
-	num_2.output_im();
-	num_1.multiplication(num_2);
-	cout << "The result of multiplication:\n";
-	num_1.output_re();
-	num_1.output_im();
+	Tree T;
+	T.Push("dan");
+	T.Push("dan");
+	T.Push("tekst");
+	T.Push("bez");
+	T.Push("bez");
+	T.Push("bez");
+	T.Push("zaglavnykh");
+	T.Push("bukv");
+
+	cout << "dan dan tekst bez bez bez zaglavnykh bukv" << endl;
+	cout << "How many times did the word 'dan' occur in the sentence? " << T.Search("dan") << endl;
+	cout << "How many times did the word 'tekst' occur in the sentence? " << T.Search("tekst") << endl;
+	cout << "How many times did the word 'bez' occur in the sentence? " << T.Search("bez") << endl;
+	cout << "How many times did the word 'zaglavnykh' occur in the sentence? " << T.Search("zaglavnykh") << endl;
+	cout << "How many times did the word 'bukv' occur in the sentence? " << T.Search("bukv") << endl;
+
 	system("pause");
-    return 0;
+	return 0;
 }
