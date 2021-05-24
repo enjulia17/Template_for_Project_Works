@@ -159,8 +159,6 @@ TPolynomial &TPolynomial::operator+=(const TMonomial &m)
 
 TPolynomial &TPolynomial::operator-=(const TMonomial &m)
 {
-	//if (n != m.GetN())
-		//throw "Error";
 	if (m.GetCoeff() == 0)
 		return *this;
 	if (start == NULL)

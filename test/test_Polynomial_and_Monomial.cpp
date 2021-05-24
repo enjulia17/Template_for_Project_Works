@@ -106,7 +106,7 @@ TEST(TPolynomial, can_subtract_polynomials_with_equal_n)
 	ASSERT_NO_THROW(P1 - P2);
 }
 
-TEST(TMonomial, can_sum_monomials_with_diff_size)
+TEST(TPolynomial, can_sum_polynomials_with_diff_size)
 {
 	TMonomial A(123, 3.1);
 	TMonomial B(1234, 0.5);
@@ -115,7 +115,7 @@ TEST(TMonomial, can_sum_monomials_with_diff_size)
 	ASSERT_NO_THROW(P += B);
 }
 
-TEST(TMonomial, can_subtract_monomials_with_diff_size)
+TEST(TPolynomial, can_subtract_polynomials_with_diff_size)
 {
 	TMonomial A(123, 3.1);
 	TMonomial B(1234, 0.5);

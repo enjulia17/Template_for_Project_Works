@@ -6,13 +6,13 @@ using namespace std;
 
 int numDigits(int n)
 {
-	std::string s = std::to_string(n);
+	string s = to_string(n);
 	return s.length();
 }
 
 int getDigit(int n, int i)
 {
-	std::string s = std::to_string(n);
+	string s = to_string(n);
 	return (int)s[i] - 48;
 }
 
